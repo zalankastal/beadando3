@@ -3,11 +3,18 @@
 using namespace genv;
 
 
-Widgets::Widgets(int szelesseg, int magassag) : _szel(szelesseg), _mag(magassag)
-{}
+Widgets::Widgets(int szelesseg, int magassag): _szel(szelesseg), _mag(magassag)
+{
 
+}
+
+void Widgets::megnyit(){
+
+    gout.open(_szel,_mag);
+}
 
 void Widgets::palyaRajzol(){
+
 
     gout<<move_to(140,90)<<color(120,120,250)<<box(720,620);
 
@@ -17,6 +24,9 @@ void Widgets::palyaRajzol(){
 
     int kx = 0;
     int ky = 0;
+
+
+
 
     for (int ix = 0; ix < 7; ++ix) {
         kx = 200 + 100*ix;
@@ -36,3 +46,4 @@ void Widgets::palyaRajzol(){
 
     gout<<refresh;
 }
+

@@ -10,8 +10,8 @@ protected:
 
 public:
     Widgets(int szelesseg, int magassag);
-    virtual void palyaRajzol();
-    virtual void kezel(genv::event ev) = 0;
+    void palyaRajzol();
+    void megnyit();
 };
 
 #endif // WIDGETS_HPP

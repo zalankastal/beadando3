@@ -9,58 +9,68 @@ Jatek::Jatek(int szelesseg,int magassag, vector <vector <int>> v, bool jatekos, 
 }
 
 
-void Jatek::kezel(event ev){
-    int sor = -1;
-    int oszlop = -1;
+void Jatek::kezel(){
 
-    if(!_jatekos){
-        gout<<move_to(120,16)<<color(255,255,0)<<box(20,20);
-    }else{
-        gout<<move_to(120,16)<<color(255,0,0)<<box(20,20);
-    }
+    event ev;
 
-    if(ev.button == btn_left){
-        for (int o = 0; o < 7; ++o) {
-            if(ev.pos_y > 90 && ev.pos_y < 710){
-                if(ev.pos_x > 160 + o*100  && ev.pos_x < 160 + o*100 + 80 ) {
-                    for (int s = 0; s < 6; ++s) {
-                        if(_v[s][o] == 0){
-                            if(sor < 0){
-                                sor = s;
-                            }
-                            if(oszlop < 0){
-                                oszlop = o;
+    while(gin >> ev && ev.keycode != key_escape) {
+
+        int sor = -1;
+        int oszlop = -1;
+
+        if(!_jatekos){
+            gout<<move_to(120,16)<<color(255,255,0)<<box(20,20);
+        }else{
+            gout<<move_to(120,16)<<color(255,0,0)<<box(20,20);
+        }
+
+        if(ev.button == btn_left){
+            for (int o = 0; o < 7; ++o) {
+                if(ev.pos_y > 90 && ev.pos_y < 710){
+                    if(ev.pos_x > 160 + o*100  && ev.pos_x < 160 + o*100 + 80 ) {
+                        for (int s = 0; s < 6; ++s) {
+                            if(_v[s][o] == 0){
+                                if(sor < 0){
+                                    sor = s;
+                                }
+                                if(oszlop < 0){
+                                    oszlop = o;
+                                }
                             }
                         }
                     }
                 }
             }
         }
+
+        if(sor > -1 && oszlop > -1){
+
+            if(_jatekos){
+                _v[sor][oszlop]=1;
+            }
+            else{
+                _v[sor][oszlop]=2;
+            }
+
+            if(_nyertes<1){
+                oszlopNyert(sor,oszlop);
+                sorNyert(sor,oszlop);
+                atloJobbFel(sor,oszlop);
+                atloBalFel(sor,oszlop);
+                dontetlen();
+                rajzolKor();
+                korok();
+            }
+        }
+
+        if(_nyertes>0){
+            ujJatek(ev);
+        }
+
+
+
     }
 
-    if(sor > -1 && oszlop > -1){
-
-        if(_jatekos){
-            _v[sor][oszlop]=1;
-        }
-        else{
-            _v[sor][oszlop]=2;
-        }
-
-        if(_nyertes<1){
-            oszlopNyert(sor,oszlop);
-            sorNyert(sor,oszlop);
-            atloJobbFel(sor,oszlop);
-            atloBalFel(sor,oszlop);
-            dontetlen();
-            rajzolKor();
-            korok();
-        }
-    }
-
-    if(_nyertes>0){
-        ujJatek(ev);
-    }
 }
 
 void Jatek::rajzolKor(){
@@ -277,3 +287,4 @@ void Jatek::ujJatek(event ev){
 void Jatek::start(){
     Widgets::palyaRajzol();
 }
+

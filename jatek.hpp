@@ -14,7 +14,7 @@ protected:
 public:
     Jatek(int szelesseg, int magassag, std::vector <std::vector <int>> v, bool jatekos, int nyertes);
 
-    virtual void kezel(genv::event ev) override;
+    void kezel();
     void rajzolKor();
     void korok();
     void sorNyert(int sor, int oszlop);

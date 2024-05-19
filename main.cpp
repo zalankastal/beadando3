@@ -6,42 +6,35 @@
 using namespace std;
 using namespace genv;
 
-const int szelesseg = 1000;
-const int magassag = 800;
+class MyApp: public Widgets
+{
+public:
+    MyApp(int szelesseg,int magassag): Widgets(szelesseg,magassag){
 
+    }
+    void tabla(){
+        event ev;
+
+        vector<vector<int>> v (6, vector<int>(7, 0));
+
+        Jatek* j = new Jatek(_szel,_mag,v,0,0);
+
+        j->megnyit();
+        j->start();
+        j->kezel();
+    }
+
+protected:
+    Jatek* j;
+};
 
 
 
 int main()
 {
-    gout.open(szelesseg,magassag);
-
-    event ev;
+    MyApp app(1000,800);
 
 
-    vector<vector<int>> v (6, vector<int>(7, 0));
-
-
-
-
-    Jatek* j = new Jatek(szelesseg,magassag,v,0,0);
-
-
-    j->start();
-
-
-
-
-
-    gout<<refresh;
-
-
-    while(gin >> ev && ev.keycode != key_escape) {
-
-        j->kezel(ev);
-
-
-
-    }
+    app.tabla();
     return 0;
 }
