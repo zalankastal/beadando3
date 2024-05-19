@@ -22,7 +22,7 @@ int main()
 
 
 
-    Jatek* j = new Jatek(szelesseg,magassag,v,0);
+    Jatek* j = new Jatek(szelesseg,magassag,v,0,0);
 
     j->palyaRajzol();
 

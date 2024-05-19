@@ -9,7 +9,11 @@ Widgets::Widgets(int szelesseg, int magassag) : _szel(szelesseg), _mag(magassag)
 
 void Widgets::palyaRajzol(){
 
-    gout<<move_to(140,90)<<color(120,120,250)<<box(720,620)<<refresh;
+    gout<<move_to(140,90)<<color(120,120,250)<<box(720,620);
+
+    gout<<move_to(120,16)<<color(255,0,0)<<box(20,20);
+
+    gout<<move_to(10,30)<<color(255,255,255)<<text("Ki van soron: ")<<refresh;
 
     int kx = 0;
     int ky = 0;
