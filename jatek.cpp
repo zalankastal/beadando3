@@ -47,12 +47,19 @@ void Jatek::kezel(event ev){
             _v[sor][oszlop]=2;
         }
 
-        oszlopNyert(sor,oszlop);
-        sorNyert(sor,oszlop);
-        atloJobbFel(sor,oszlop);
-        atloBalFel(sor,oszlop);
-        rajzolKor();
-        korok();
+        if(_nyertes<1){
+            oszlopNyert(sor,oszlop);
+            sorNyert(sor,oszlop);
+            atloJobbFel(sor,oszlop);
+            atloBalFel(sor,oszlop);
+            dontetlen();
+            rajzolKor();
+            korok();
+        }
+    }
+
+    if(_nyertes>0){
+        ujJatek(ev);
     }
 }
 
@@ -98,22 +105,18 @@ void Jatek::oszlopNyert(int sor, int oszlop){
     int db = 1;
 
     for (int i = 1; i < 4; ++i) {
-
         if(sor-i >= 0 ){
-            if(_v[sor-1][oszlop] == szin){
+            if(_v[sor-i][oszlop] == szin){
                 db++;
             }
         }
-
-
     }
 
     if(db>3){
         _nyertes = szin;
 
-        cout<<"Nyertes: "<<_nyertes<<endl;
+        gyoztes();
     }
-
 }
 
 
@@ -134,7 +137,7 @@ void Jatek::sorNyert(int sor, int oszlop){
     }
 
     for (int i = 1; i < 4; ++i) {
-        if(oszlop+i <= 7){
+        if(oszlop+i <= 6){
             if(_v[sor][oszlop+i] == szin){
                 db++;
             }
@@ -148,7 +151,7 @@ void Jatek::sorNyert(int sor, int oszlop){
     if(db>3){
         _nyertes = szin;
 
-        cout<<"Nyertes: "<<_nyertes<<endl;
+        gyoztes();
     }
 }
 
@@ -159,7 +162,7 @@ void Jatek::atloBalFel(int sor, int oszlop){
     int db = 1;
 
     for (int i = 1; i < 4; ++i) {
-        if(sor+i <= 7 && oszlop-i >= 0){
+        if(sor+i <= 5 && oszlop-i >= 0){
             if(_v[sor+i][oszlop-i] == szin){
                 db++;
             }
@@ -170,7 +173,7 @@ void Jatek::atloBalFel(int sor, int oszlop){
     }
 
     for (int i = 1; i < 4; ++i) {
-        if(sor-i >= 0 && oszlop+i <= 7){
+        if(sor-i >= 0 && oszlop+i <= 6){
             if(_v[sor-i][oszlop+i] == szin){
                 db++;
             }
@@ -183,7 +186,8 @@ void Jatek::atloBalFel(int sor, int oszlop){
     if(db>3){
         _nyertes = szin;
 
-        cout<<"Nyertes: "<<_nyertes<<endl;
+
+        gyoztes();
     }
 }
 
@@ -203,7 +207,7 @@ void Jatek::atloJobbFel(int sor, int oszlop){
     }
 
     for (int i = 1; i < 4; ++i) {
-        if(sor+i <= 7 && oszlop+i <= 7){
+        if(sor+i <= 5 && oszlop+i <= 6){
             if(_v[sor+i][oszlop+i] == szin){
                 db++;
             }
@@ -216,6 +220,60 @@ void Jatek::atloJobbFel(int sor, int oszlop){
     if(db>3){
         _nyertes = szin;
 
-        cout<<"Nyertes: "<<_nyertes<<endl;
+
+        gyoztes();
     }
+}
+
+void Jatek::gyoztes(){
+    if(_nyertes == 1){
+        gout<<move_to(450,30)<<color(255,255,255)<<text("Gyoztes: Sarga");
+    }
+    else{
+        gout<<move_to(450,30)<<color(255,255,255)<<text("Gyoztes: Piros");
+    }
+    gout<<move_to(415,60)<<color(255,255,255)<<text("'Enter' az uj jatekhoz");
+}
+
+void Jatek::dontetlen(){
+    int db = 0;
+
+    for (int s = 0; s < 6; ++s) {
+        for (int o = 0; o < 7; ++o) {
+            if(_v[s][o]>0){
+                db++;
+            }
+        }
+    }
+
+    if(db == 42 && _nyertes == 0){
+        gout<<move_to(460,30)<<color(255,255,255)<<text("Dontetlen");
+        gout<<move_to(415,60)<<color(255,255,255)<<text("'Enter' az uj jatekhoz");
+        _nyertes = 3;
+    }
+}
+
+void Jatek::ujJatek(event ev){
+
+
+
+    if(ev.keycode == key_enter){
+        for (int s = 0; s < 6; ++s) {
+            for (int o = 0; o < 7; ++o) {
+                _v[s][o] = 0;
+            }
+        }
+
+        gout<<move_to(0,0)<<color(0,0,0)<<box(_szel,_mag);
+
+        start();
+        _jatekos = 0;
+        _nyertes = 0;
+    }
+
+}
+
+
+void Jatek::start(){
+    Widgets::palyaRajzol();
 }

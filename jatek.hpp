@@ -21,6 +21,10 @@ public:
     void oszlopNyert(int sor, int oszlop);
     void atloJobbFel(int sor, int oszlop);
     void atloBalFel(int sor, int oszlop);
+    void dontetlen();
+    void gyoztes();
+    void ujJatek(genv::event ev);
+    void start();
 };
 
 #endif // JATEK_HPP

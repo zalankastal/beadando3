@@ -10,6 +10,8 @@ const int szelesseg = 1000;
 const int magassag = 800;
 
 
+
+
 int main()
 {
     gout.open(szelesseg,magassag);
@@ -24,8 +26,8 @@ int main()
 
     Jatek* j = new Jatek(szelesseg,magassag,v,0,0);
 
-    j->palyaRajzol();
 
+    j->start();
 
 
 

@@ -13,7 +13,7 @@ void Widgets::palyaRajzol(){
 
     gout<<move_to(120,16)<<color(255,0,0)<<box(20,20);
 
-    gout<<move_to(10,30)<<color(255,255,255)<<text("Ki van soron: ")<<refresh;
+    gout<<move_to(10,30)<<color(255,255,255)<<text("Ki van soron: ");
 
     int kx = 0;
     int ky = 0;
@@ -33,4 +33,6 @@ void Widgets::palyaRajzol(){
             }
         }
     }
+
+    gout<<refresh;
 }
