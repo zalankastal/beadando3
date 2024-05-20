@@ -3,6 +3,7 @@
 
 #include "graphics.hpp"
 #include "widgets.hpp"
+#include "statictext.hpp"
 
 class Jatek : public Widgets
 {
@@ -15,7 +16,6 @@ public:
     Jatek(int szelesseg, int magassag, std::vector <std::vector <int>> v, bool jatekos, int nyertes);
 
     void kezel();
-    void rajzolKor();
     void korok();
     void sorNyert(int sor, int oszlop);
     void oszlopNyert(int sor, int oszlop);
@@ -24,7 +24,6 @@ public:
     void dontetlen();
     void gyoztes();
     void ujJatek(genv::event ev);
-    void start();
 };
 
 #endif // JATEK_HPP

@@ -1,6 +1,5 @@
 #include "jatek.hpp"
 #include "graphics.hpp"
-#include "iostream"
 
 using namespace genv;
 using namespace std;
@@ -13,16 +12,18 @@ void Jatek::kezel(){
 
     event ev;
 
+    StaticText* s = new StaticText(_szel,_mag,10,10,200,50,"Ki van soron: ");
+
+    s->rajzolText(_jatekos);
+
+
     while(gin >> ev && ev.keycode != key_escape) {
 
         int sor = -1;
         int oszlop = -1;
 
-        if(!_jatekos){
-            gout<<move_to(120,16)<<color(255,255,0)<<box(20,20);
-        }else{
-            gout<<move_to(120,16)<<color(255,0,0)<<box(20,20);
-        }
+
+
 
         if(ev.button == btn_left){
             for (int o = 0; o < 7; ++o) {
@@ -43,6 +44,8 @@ void Jatek::kezel(){
             }
         }
 
+
+
         if(sor > -1 && oszlop > -1){
 
             if(_jatekos){
@@ -58,7 +61,7 @@ void Jatek::kezel(){
                 atloJobbFel(sor,oszlop);
                 atloBalFel(sor,oszlop);
                 dontetlen();
-                rajzolKor();
+                rajzolKor(_v);
                 korok();
             }
         }
@@ -69,36 +72,13 @@ void Jatek::kezel(){
 
 
 
-    }
-
-}
-
-void Jatek::rajzolKor(){
-
-
-    for (int s = 0; s < 6; ++s) {
-        for (int o = 0; o < 7; ++o) {
-            if(_v[s][o]>0){
-                for (int x = 0; x < _szel; ++x) {
-                    for (int y = 0; y < _mag; ++y) {
-                        if(40*40>=(x-(200 + o*100))*(x-(200 + o*100)) + (y-(650-s*100))*(y-(650-s*100))){
-                            if(_v[s][o]==1){
-                                gout<<move_to(x,y)<<color(255,255,0)<<dot;
-                            }
-                            else{
-                                gout<<move_to(x,y)<<color(255,0,0)<<dot;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        s->rajzolText(_jatekos);
     }
 
 
-
-    gout<<refresh;
+    delete s;
 }
+
 
 void Jatek::korok(){
     if(_jatekos){
@@ -276,15 +256,11 @@ void Jatek::ujJatek(event ev){
 
         gout<<move_to(0,0)<<color(0,0,0)<<box(_szel,_mag);
 
-        start();
+        rajzolPalya();
         _jatekos = 0;
         _nyertes = 0;
     }
 
 }
 
-
-void Jatek::start(){
-    Widgets::palyaRajzol();
-}
 

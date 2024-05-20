@@ -10,8 +10,9 @@ protected:
 
 public:
     Widgets(int szelesseg, int magassag);
-    void palyaRajzol();
+    void rajzolPalya();
     void megnyit();
+    void rajzolKor(std::vector <std::vector <int>> _v);
 };
 
 #endif // WIDGETS_HPP

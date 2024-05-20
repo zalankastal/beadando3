@@ -1,7 +1,7 @@
 #include "graphics.hpp"
 #include "widgets.hpp"
 #include "jatek.hpp"
-#include "iostream"
+#include "statictext.hpp"
 
 using namespace std;
 using namespace genv;
@@ -20,10 +20,9 @@ public:
         Jatek* j = new Jatek(_szel,_mag,v,0,0);
 
         j->megnyit();
-        j->start();
+        j->rajzolPalya();
         j->kezel();
     }
-
 protected:
     Jatek* j;
 };
@@ -33,7 +32,6 @@ protected:
 int main()
 {
     MyApp app(1000,800);
-
 
     app.tabla();
     return 0;
